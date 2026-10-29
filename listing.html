@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#075E34">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TariAds">
+  <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <title>Listing Details — TariAds</title>
+  <meta name="description" content="View listing details and contact verified Zimbabwean sellers directly on TariAds.">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="prefetch" href="index.html">
+  <link rel="prefetch" href="categories.html">
+  <link rel="prefetch" href="discover.html">
+  <link rel="prefetch" href="saved.html">
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+</head>
+<body class="app-dark-page listing-detail-page">
+
+  <!-- Main Site Header -->
+  <header class="site-header" id="mainHeader">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" title="TariAds Marketplace">
+        <div class="brand-icon-box">T</div>
+        <div class="brand-text">
+          <span class="brand-title">TARIADS</span>
+        </div>
+      </a>
+
+      <!-- Ecosystem Mode Switch -->
+      <div class="ecosystem-mode-switch" role="tablist" aria-label="TariAds Experience Mode">
+        <a href="index.html" class="mode-btn active" id="modeMarketplace" role="tab" aria-selected="true" title="TariAds Marketplace — Discover and List">
+          <svg class="mode-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span>Marketplace</span>
+        </a>
+        <a href="https://billboard.usetariads.com" class="mode-btn" id="modeBillboard" role="tab" aria-selected="false" title="TariAds Billboard — Digital Advertising & Campaigns">
+          <svg class="mode-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="14" x="2" y="3" rx="2"/>
+            <line x1="8" x2="16" y1="21" y2="21"/>
+            <line x1="12" x2="12" y1="17" y2="21"/>
+          </svg>
+          <span>Billboard</span>
+        </a>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <a href="saved.html" class="saved-btn" title="Saved Items">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          <span class="saved-label">Saved</span>
+          <span class="badge-count saved-count-display" style="display:none;">0</span>
+        </a>
+
+        <a href="post-listing.html" class="btn btn-primary btn-sm header-post-btn" id="headerListBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="post-btn-text">Post Listing</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Detail Content Area -->
+  <main class="container listing-detail-wrapper" id="listingDetailMain">
+    
+    <!-- Top Breadcrumb & Navigation Bar -->
+    <nav class="detail-nav-row" aria-label="Breadcrumb navigation">
+      <button type="button" class="detail-back-btn" id="detailBackBtn" aria-label="Go back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+        <span>Back</span>
+      </button>
+      <div class="detail-breadcrumb-path">
+        <a href="index.html">Home</a>
+        <span class="detail-bc-sep">/</span>
+        <a href="categories.html" id="breadcrumbCategoryLink">Categories</a>
+        <span class="detail-bc-sep">/</span>
+        <span class="detail-bc-current" id="breadcrumbTitle">Listing</span>
+      </div>
+    </nav>
+
+    <!-- Error / Not Found State -->
+    <div class="detail-not-found" id="listingNotFound" style="display:none;">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <h2>Listing Not Found</h2>
+      <p>The listing you are looking for is no longer active or does not exist.</p>
+      <a href="index.html" class="btn btn-primary" style="margin-top:1rem;">Return to Home Feed</a>
+    </div>
+
+    <!-- Active Listing Detail Grid Layout -->
+    <div class="listing-detail-layout" id="listingDetailContent">
+      
+      <!-- Left Column: Media Stage & Information -->
+      <section class="detail-main-col">
+        
+        <!-- Media Showcase Stage (Uncropped, Contained Presentation) -->
+        <div class="detail-media-card">
+          <div class="detail-image-stage" id="detailImageStage">
+            <img id="detailHeroImage" src="" alt="Listing photo" class="detail-hero-img" />
+            <button type="button" class="detail-save-floating-btn" id="detailSaveBtn" aria-label="Save listing" title="Save listing">
+              <svg id="detailSaveIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+              </svg>
+            </button>
+          </div>
+          <!-- Multi-photo Thumbnails Row (if multiple images exist) -->
+          <div class="detail-thumbs-row" id="detailThumbsRow" style="display:none;"></div>
+        </div>
+
+        <!-- Listing Core Details -->
+        <div class="detail-info-card">
+          <!-- Category & Tags Header -->
+          <div class="detail-meta-header">
+            <div class="detail-meta-tags">
+              <span class="detail-category-badge" id="detailCategoryBadge">Products</span>
+              <span class="detail-sponsored-badge" id="detailSponsoredBadge" style="display:none;">Sponsored</span>
+              <span class="detail-condition-badge" id="detailConditionBadge">Brand New</span>
+            </div>
+            <div class="detail-header-actions">
+              <button type="button" class="detail-action-icon-btn" id="detailShareBtn" aria-label="Share listing" title="Share listing">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"/>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                </svg>
+                <span class="detail-action-btn-text">Share</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Listing Title -->
+          <h1 class="detail-title" id="detailTitle">Listing Title</h1>
+
+          <!-- Price & Indicative Guide -->
+          <div class="detail-price-box">
+            <div class="detail-price-row">
+              <span class="detail-price-amount" id="detailPrice">$0.00</span>
+              <span class="detail-price-period" id="detailPricePeriod"></span>
+            </div>
+            <div class="detail-zig-guide" id="detailZiGGuide"></div>
+          </div>
+
+          <!-- Location & Reference Info -->
+          <div class="detail-location-row">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.2">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span class="detail-location-text" id="detailLocation">Harare, Zimbabwe</span>
+            <span class="detail-meta-dot">·</span>
+            <span class="detail-id-text" id="detailIdBadge">ID: TAR-000</span>
+          </div>
+
+          <!-- Description Section -->
+          <div class="detail-section">
+            <h3 class="detail-section-title">About this listing</h3>
+            <p class="detail-description-text" id="detailDescription"></p>
+          </div>
+
+          <!-- Specifications / Features Section -->
+          <div class="detail-section" id="detailSpecsSection">
+            <h3 class="detail-section-title">Highlights & Features</h3>
+            <div class="detail-features-grid" id="detailFeaturesGrid"></div>
+          </div>
+
+          <!-- Physical Verification Card (if verified) -->
+          <div class="detail-verified-card" id="detailVerifiedCard" style="display:none;">
+            <div class="detail-verified-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#075E34" stroke="#FFFFFF" stroke-width="2">
+                <path d="M12 2l3.09 3.26 4.41-.65 1.57 4.19 3.93 2.05-1.57 4.19.65 4.41-4.41.65-3.09 3.26-3.09-3.26-4.41-.65-.65-4.41-3.93-2.05 1.57-4.19-1.57-4.19 4.41-.65z"/>
+                <polyline points="9 12 11 14 15 10" stroke="#FFFFFF" stroke-width="2.5" fill="none"/>
+              </svg>
+            </div>
+            <div class="detail-verified-text">
+              <div class="detail-verified-heading">Verified Advertiser & Stock</div>
+              <div class="detail-verified-body">This business and listing have been physically authenticated by TariAds Harare operations.</div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- Right Column: Business Profile & Direct Contact Actions -->
+      <aside class="detail-sidebar-col">
+        
+        <!-- Business Profile Lockup Card -->
+        <div class="detail-seller-card">
+          <div class="detail-seller-header">
+            <div class="detail-seller-avatar" id="detailSellerAvatar">
+              <span id="detailSellerInitials">TA</span>
+            </div>
+            <div class="detail-seller-info">
+              <div class="detail-seller-name-row">
+                <h4 class="detail-seller-name" id="detailSellerName">Business Name</h4>
+                <svg id="detailSellerVerifiedIcon" class="detail-seller-badge" width="16" height="16" viewBox="0 0 24 24" fill="#075E34" stroke="#FFFFFF" stroke-width="2" style="display:none;">
+                  <path d="M12 2l3.09 3.26 4.41-.65 1.57 4.19 3.93 2.05-1.57 4.19.65 4.41-4.41.65-3.09 3.26-3.09-3.26-4.41-.65-.65-4.41-3.93-2.05 1.57-4.19-1.57-4.19 4.41-.65z"/>
+                  <polyline points="9 12 11 14 15 10" stroke="#FFFFFF" stroke-width="2.5" fill="none"/>
+                </svg>
+              </div>
+              <span class="detail-seller-role" id="detailSellerRole">Verified Business</span>
+              <span class="detail-seller-loc" id="detailSellerLocation">Harare CBD, Zimbabwe</span>
+            </div>
+          </div>
+
+          <!-- Direct Business Contact Buttons -->
+          <div class="detail-contact-actions" id="detailContactActions">
+            
+            <!-- WhatsApp Action (Prominent Emerald Button with prefilled listing title & price) -->
+            <a href="#" target="_blank" rel="noopener noreferrer" class="detail-btn detail-btn-wa" id="detailWhatsAppBtn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.05 4.91A9.816 9.816 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zm-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.23-8.22 8.23z"/>
+              </svg>
+              <span id="detailWhatsAppText">Enquire on WhatsApp</span>
+            </a>
+
+            <!-- Direct Call Button (tel:) -->
+            <a href="#" class="detail-btn detail-btn-tel" id="detailCallBtn" style="display:none;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              <span>Call Seller</span>
+            </a>
+
+            <!-- Website / Application Button (if link exists) -->
+            <a href="#" target="_blank" rel="noopener noreferrer" class="detail-btn detail-btn-link" id="detailWebLinkBtn" style="display:none;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              <span id="detailWebLinkText">Visit Website / Apply</span>
+            </a>
+
+            <!-- Graceful No-Direct-Contact Notice (e.g. KESON Electronics) -->
+            <div class="detail-no-contact-notice" id="detailNoContactNotice" style="display:none;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+              <div>
+                <strong>Showroom Visits Only</strong>
+                <p>This retailer conducts business via in-person showroom visits. Visit their store in Harare CBD to inspect and purchase.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Trust & Direct Dealing Note -->
+          <div class="detail-direct-note">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <span>Direct business contact. No middleman or commission fees.</span>
+          </div>
+
+        </div>
+
+        <!-- Safety Advice Card -->
+        <div class="detail-safety-card">
+          <div class="detail-safety-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span>Safety & Inspection Advice</span>
+          </div>
+          <ul class="detail-safety-list">
+            <li>Always inspect products or property in person before releasing payment.</li>
+            <li>Meet in public or verified business premises during daylight hours.</li>
+            <li>Report suspicious listings or requests via our safety line.</li>
+          </ul>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- Sticky Mobile Bottom Contact Action Bar -->
+  <div class="detail-mobile-sticky-bar" id="detailMobileStickyBar">
+    <div class="detail-sticky-price-col">
+      <span class="detail-sticky-label">Asking Price</span>
+      <span class="detail-sticky-price" id="detailStickyPrice">$0.00</span>
+    </div>
+    <div class="detail-sticky-actions">
+      <button type="button" class="detail-sticky-save-btn save-card-btn" id="detailStickySaveBtn" aria-label="Save listing">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+        </svg>
+      </button>
+      <a href="#" target="_blank" rel="noopener noreferrer" class="detail-sticky-contact-btn" id="detailStickyContactBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19.05 4.91A9.816 9.816 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01zm-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.23-8.22 8.23z"/>
+        </svg>
+        <span id="detailStickyContactLabel">Contact Seller</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="reels-toast" id="detailToast">
+    <span>Link copied to clipboard</span>
+  </div>
+
+  <!-- Persistent Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile Bottom Navigation">
+    <a href="index.html" class="bottom-nav-item" id="bnavHome">
+      <svg class="bnav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      <span>Home</span>
+    </a>
+    <a href="discover.html" class="bottom-nav-item" id="bnavDiscover">
+      <svg class="bnav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+      </svg>
+      <span>Discover</span>
+    </a>
+    <a href="categories.html" class="bottom-nav-item active" id="bnavCategories">
+      <svg class="bnav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="7" height="7" x="3" y="3" rx="1"/>
+        <rect width="7" height="7" x="14" y="3" rx="1"/>
+        <rect width="7" height="7" x="14" y="14" rx="1"/>
+        <rect width="7" height="7" x="3" y="14" rx="1"/>
+      </svg>
+      <span>Categories</span>
+    </a>
+    <a href="saved.html" class="bottom-nav-item" id="bnavSaved">
+      <svg class="bnav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+      </svg>
+      <span>Saved</span>
+      <span class="badge-count saved-count-display bnav-badge" style="display:none;">0</span>
+    </a>
+    <a href="post-listing.html" class="bottom-nav-item bnav-post-highlight" id="bnavPost">
+      <div class="bnav-post-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+      </div>
+      <span>Post</span>
+    </a>
+  </nav>
+
+  <script type="module" src="js/data.js"></script>
+  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/listing-detail.js"></script>
+</body>
+</html>

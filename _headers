@@ -1,0 +1,54 @@
+# Cloudflare Pages Caching & Security Headers for TariAds PWA
+
+# Global Security Headers
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(self), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+
+# HTML Pages & Navigation Shell — Must revalidate for fresh content
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Service Worker — Zero cache so browsers immediately detect updates
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate, no-cache, no-store
+  Service-Worker-Allowed: /
+  Content-Type: application/javascript; charset=utf-8
+
+# Web App Manifest
+/manifest.json
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Type: application/manifest+json; charset=utf-8
+
+# PWA App Icons
+/icons/favicon.svg
+  Cache-Control: public, max-age=86400, must-revalidate
+  Content-Type: image/svg+xml
+
+/icons/icon-192.png
+  Cache-Control: public, max-age=86400, must-revalidate
+  Content-Type: image/png
+
+/icons/icon-512.png
+  Cache-Control: public, max-age=86400, must-revalidate
+  Content-Type: image/png
+
+/icons/icon-maskable-512.png
+  Cache-Control: public, max-age=86400, must-revalidate
+  Content-Type: image/png
+
+/icons/apple-touch-icon.png
+  Cache-Control: public, max-age=86400, must-revalidate
+  Content-Type: image/png
+
+# Consolidated Stylesheets & JavaScript
+/css/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/js/*
+  Cache-Control: public, max-age=3600, must-revalidate
